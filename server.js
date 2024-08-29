@@ -1,14 +1,21 @@
 import express from 'express';
-import {product} from './data.js';
+import { product } from './data.js';
 import dotenv from 'dotenv';
+import User from './model/usermodel.js';
+import dbconnection from './config/dbconnection.js';
+import routes from './routes/userroutes.js';
 dotenv.config();
+
 const app = express();
-const port=process.env.PORT || 5000;
+app.use(express.json());
+const port =process.env.PORT || 5000;
+dbconnection();
+User();
+app.use("/api",routes)
 app.get('/product',(req,res)=>{
-    res.send(product);
-
+res.send(product)
+})
+app.listen(port , ()=>{
+    console.log(`Server is running on port ${port}`)
 })
 
-app.listen(port,()=>{
-    console.log('server is running on port '+port);
-})
