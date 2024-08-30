@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import User from './model/usermodel.js';
 import dbconnection from './config/dbconnection.js';
 import routes from './routes/userroutes.js';
+import productroutes from './routes/product.js';
 dotenv.config();
 
 const app = express();
@@ -12,6 +13,7 @@ const port =process.env.PORT || 5000;
 dbconnection();
 User();
 app.use("/api",routes)
+app.use("/",productroutes)
 app.get('/product',(req,res)=>{
 res.send(product)
 })
